@@ -1,5 +1,5 @@
-include <iostream>
-include <string>
+#include <iostream>
+#include <string>
 
 int ex3(char ch, std::string str)
 {
