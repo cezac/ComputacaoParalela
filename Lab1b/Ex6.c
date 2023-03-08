@@ -10,7 +10,7 @@ int main() {
 
     for(l = 0; l < tamL; l++){
         for(c = 0; c < tamC; c++){
-            mat[l][c] = rand() % 500;
+            mat[l][c] = rand() % 20; // Ao invés de ler do teclado, resolvi utilizar a biblioteca para preencher randomicamente a matriz
         }
     }
 
