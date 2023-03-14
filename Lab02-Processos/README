@@ -1,0 +1,20 @@
+Considere o seguinte código na linguagem C para o cálculo do fatorial:
+
+# include <stdio.h>
+
+int main()
+{
+   int i, num, j;
+   printf ("Enter the number: ");
+   scanf ("%d", &num);
+   j = num;
+
+   for (i=1; j > 1; j = j -1) {
+         i=i*j;
+   }
+
+   printf("The factorial of %d is %d\n",num,i);
+}
+Implemente a versão multiprocessada do cálculo do fatorial e compare o tempo de execução com a versão serial.
+
+Obs.: Não coloque dentro do seu código nenhuma chamada que calcule o tempo, como a inclusão da biblioteca time.h
