@@ -6,15 +6,15 @@
 
 
 int status;
-void child (int* sharedVariable)
+void filho (int* variavel)
 {
-    *sharedVariable = *sharedVariable + 2;
+    *variavel = *variavel + 2;
 }
-void parent(int* sharedVariable)
+void pai(int* variavel)
 {
     wait(&status);
-    *sharedVariable = *sharedVariable * 4;
-    printf("Novo Valor da variavel = %d\n", *sharedVariable);
+    *variavel = *variavel * 4;
+    printf("Novo Valor da variavel = %d\n", *variavel);
 }
 
 
@@ -22,26 +22,26 @@ int main(void)
 {
     int id = shmget(IPC_PRIVATE, sizeof(int), IPC_CREAT|0666);
     // declara o ponteiro para inteiro
-    int* sharedVariable;
+    int* variavel;
     // faz o atach da regiao de memoria
-    sharedVariable = (int*) shmat(id, NULL, 0);
-    *sharedVariable = 1;
-    printf("Variavel = %d\n", *sharedVariable);
+    variavel = (int*) shmat(id, NULL, 0);
+    *variavel = 1;
+    printf("Variavel = %d\n", *variavel);
     
     int pid = fork();
 
     if (pid == 0)
     {
         // processo filho
-        child(sharedVariable);
+        filho(variavel);
     } 
     else 
     {
         // processo pai chama sua respectiva função
         //parent(sharedVariable);
           wait(&status);
-          *sharedVariable = *sharedVariable * 4;
-          printf("Novo Valor da variavel = %d\n", *sharedVariable);
+          *variavel = *variavel * 4;
+          printf("Novo Valor da variavel = %d\n", *variavel);
     }
     exit(0);
 }
