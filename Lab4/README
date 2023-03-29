@@ -14,4 +14,9 @@ PARTE 3
 
 Em seguida, mude seu algoritmo para utilizar corretamente o cache (L1, L2) e, desligando as opções de otimização do compilador (-O0), faça novamente um comparativo da velocidade do seu algoritmo.
 
+
+
+
 Coloque no README os valores de tempo e speedup.
+
+TEMPO GASTO = 4.455395 segundos
