@@ -19,4 +19,6 @@ Em seguida, mude seu algoritmo para utilizar corretamente o cache (L1, L2) e, de
 
 Coloque no README os valores de tempo e speedup.
 
-TEMPO GASTO = 4.455395 segundos
+Primeiro Tempo = 8,534334 segundos
+Segundo Tempo  = 4.455395 segundos
+O speedup é de 1,8947.
