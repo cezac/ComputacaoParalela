@@ -4,6 +4,6 @@ Considere o trecho de código em anexo para resolver o problema da multiplicaç�
 2. Tempo de execução paralelo
 3. Speedup
 
-Tempo de execução serial = 
-Tempo de execução paralela = 
-Speedup =
+Tempo de execução serial = 8,534334 segundos
+Tempo de execução paralela = 0.0010000 segundos
+Speedup = 8.534334 / 0.0010000 = 8,534,334
