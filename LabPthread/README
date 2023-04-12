@@ -1,0 +1,9 @@
+Considere o trecho de código em anexo para resolver o problema da multiplicação matriz-vetor utilizando pthreads. Entregue o link de seu repositório no git de preferência, ou submeta os arquivos-fonte, lembrando-se de fornecer junto as seguintes informações:
+
+1. Tempo de execução serial
+2. Tempo de execução paralelo
+3. Speedup
+
+Tempo de execução serial = 
+Tempo de execução paralela = 
+Speedup =
