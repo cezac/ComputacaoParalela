@@ -4,6 +4,14 @@ Considere o trecho de código em anexo para resolver o problema da multiplicaç�
 2. Tempo de execução paralelo
 3. Speedup
 
+O código apresentado com modelo possuia uma série de erros e não estava conseguindo entender como eu iria utilizá-lo para resolver o problema.
+Resolvi seguir com o modelo da tarefa anterior, mas desta fez usando o pthread e fazendo alterações significativas.
+Utilizar uma struct foi um recurso para deixar o código mais organizável e legível, além de facilitar a manipulação da matriz e das threds.
+
+FONTES DE APRENDIZADO: https://www.youtube.com/watch?v=W6-dZrywV-Q
+FONTES DE APRENDIZADO: https://www.clubedohardware.com.br/forums/topic/1199295-multiplica%C3%A7%C3%A3o-de-matrizes-com-thread/
+FONTES DE APRENDIZADO: https://forum.imasters.com.br/topic/308545-resolvido-multiplica%C3%A7%C3%A3o-de-matrizes-usando-threads-em-c/
+
 Tempo de execução serial = 8.15224 segundos
 Tempo de execução paralela = 0.0010000 segundos
 Speedup = 8.515224 / 0.0010000 = 8,515,224 
