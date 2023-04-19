@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
-void Trapezio (double a, double b, int n, double * global_result_p);
+#include <tgmath.h>
+
+double Trapezio (double a, double b, int n, double * global_result_p, double(*f)(double));
 
 int main (int argc, char* argv[]){
     double global_result = 0.0;
@@ -20,14 +22,14 @@ int main (int argc, char* argv[]){
 
 #pragma omp parallel num_threads(thread_count)
 
-    Trapezio(a, b, n, &global_result);
+    Trapezio(a, b, n, &global_result, sin);
 
     printf("Com n = %d trapezios, a estimativa\n", n);
     printf("da intregral de %f para %f = %.14e\n", a, b, global_result);
     return 0;
 }
 
-void Trapezio (double a, double b, int n, double * global_result_p){
+double Trapezio (double a, double b, int n, double * global_result_p, double(*f)(double)){
     double h, x, my_result;
     double local_a, local_b;
     int i, local_n;
@@ -43,7 +45,7 @@ void Trapezio (double a, double b, int n, double * global_result_p){
     local_n = n/thread_count;
     local_a = a + my_rank * local_n * h;
     local_b = local_a + local_n * h;
-    my_result = (local_a + local_b)/2.0;
+    my_result = (f(local_a) + f(local_b))/2.0;
     for (i = 1; i <= local_n-1; i++){
         x = local_a + i * h;
         my_result += x;
