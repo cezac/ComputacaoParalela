@@ -1,0 +1,13 @@
+Entregue a solução para o problema dos trapézios, juntamente com uma evidência de que você conseguiu executar pelo menos uma vez. Qualquer coisa serve como evidência: até um print é suficiente.
+
+Adicione a função f(x) e inclua o cabeçalho math.h para funcionar:
+
+#include <math.h>
+double f(double x){
+	return exp(x);
+}
+
+Para compilar execute o seguinte comando:
+
+gcc {nome arq} -o {nome exec} -fopenmp -lm
+
