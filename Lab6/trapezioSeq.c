@@ -9,7 +9,7 @@ int num_threads = omp_get_num_threads();
 #include <math.h>
 #include <omp.h>
 
-double trapezoidal_rule(double a, double b, int n, double(*f)(double)) // Função para resolver o problema do trapézio
+double trapezio(double a, double b, int n, double(*f)(double)) // Função para resolver o problema do trapézio
 {
     double h = (b-a)/n;
     double sum = 0.5*(f(a) + f(b));
@@ -29,7 +29,7 @@ int main()
     double a = 0.0;
     double b = 3.0;
     int n = 10;
-    double integral = trapezoidal_rule(a, b, n, sin);
+    double integral = trapezio(a, b, n, sin);
 
     printf("Integral = %f\n", integral);
     return 0;
