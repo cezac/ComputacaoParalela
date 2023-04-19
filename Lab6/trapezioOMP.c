@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
-
-
 void Trapezio (double a, double b, int n, double * global_result_p);
 
 int main (int argc, char* argv[]){
@@ -12,17 +10,19 @@ int main (int argc, char* argv[]){
     int thread_count;
 
     thread_count = strtol(argv[1], NULL, 10);
+
     printf("Entre a variavel a: \n");
-    scanf("\n %lf, &a");
+    scanf("%lf", &a);
     printf("Entre a variavel b: \n");
-    scanf("\n %lf, &b");
+    scanf("%lf", &b);
     printf("Entre a variavel n : \n");
-    scanf("\n &a, &n");
+    scanf("%d", &n);
+
 #pragma omp parallel num_threads(thread_count)
 
     Trapezio(a, b, n, &global_result);
 
-    printf("Com n = &d trapezios, a estimativa\n", n);
+    printf("Com n = %d trapezios, a estimativa\n", n);
     printf("da intregral de %f para %f = %.14e\n", a, b, global_result);
     return 0;
 }
