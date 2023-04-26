@@ -4,69 +4,56 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
-#include <sys/time.h> 
+#include <tgmath.h>
 
-#define N 400
-void multiplicacao(float A[N][N], float B[N][N], float C[N][N]) {
-    #pragma omp parallel // Região Crítica onde o as threads irão executar paralelamente a multiplicao da matriz
-    {
-        int i, j, k;
-        
-        int num_threads = omp_get_num_threads ();
-        int thread_id = omp_get_thread_num ();
-        
-        int tam_bloco = N / num_threads; 
-        int comeco_bloco = thread_id * tam_bloco;
-        int final_bloco = comeco_bloco + tam_bloco;
-        
-        if(thread_id == num_threads-1) {
-            final_bloco = N;
-        }
-        for(i = comeco_bloco; i < final_bloco; i++) {
-            for(j = 0; j < N; j++) {
-                C[i][j] = 0.0;
-                for(k = 0; k < N; k++) {
-                    C[i][j] += A[i][k] * B[k][j];
-                }
-            }
-        }
-    }
+double Trapezio (double a, double b, int n, double * global_result_p, double(*f)(double));
+
+int main (int argc, char* argv[]){
+    double global_result = 0.0;
+    double a, b;
+    int n;
+    int thread_count;
+
+    thread_count = strtol(argv[1], NULL, 10);
+
+    printf("Entre a variavel a: \n");
+    scanf("%lf", &a);
+    printf("Entre a variavel b: \n");
+    scanf("%lf", &b);
+    printf("Entre a variavel n : \n");
+    scanf("%d", &n);
+
+#pragma omp parallel num_threads(thread_count)
+
+    Trapezio(a, b, n, &global_result, sin);
+
+    printf("Com n = %d trapezios, a estimativa\n", n);
+    printf("da intregral de %f para %f = %.14e\n", a, b, global_result);
+    return 0;
 }
 
-int main(int argc, char** argv) 
-{
-    if (argc != 2)
-    {
-        printf("Wrong Usage.\n Usage: %s {thread_count}", argv[0]);
-        exit(1);
+double Trapezio (double a, double b, int n, double * global_result_p, double(*f)(double)){
+    double h, x, my_result;
+    double local_a, local_b;
+    int i, local_n;
+#ifdef _OPENMP
+    int my_rank = omp_get_thread_num();
+    int thread_count = omp_get_num_threads();
+#else
+    int my_rank = 0;
+    int thread_count = 1;
+#endif
+
+    h = (b-a)/n;
+    local_n = n/thread_count;
+    local_a = a + my_rank * local_n * h;
+    local_b = local_a + local_n * h;
+    my_result = (f(local_a) + f(local_b))/2.0;
+    for (i = 1; i <= local_n-1; i++){
+        x = local_a + i * h;
+        my_result += x;
     }
-    omp_set_num_threads(atoi(argv[1]));
-    float A[N][N], B[N][N], C[N][N];
-
-    struct timeval tv;
-    double start_t, end_t, tempo_gasto;
-
-    gettimeofday(&tv, NULL);
-    double start_serial = (double) tv.tv_sec + (double)tv.tv_usec / 1000000.0;
-    gettimeofday(&tv, NULL);
-    start_t = (double) tv.tv_sec + (double)tv.tv_usec / 1000000.0;
-
-    int i, j;
-    for(i = 0; i < N; i++) {
-        for(j = 0; j < N; j++) {
-            A[i][j] = (float) i + j;
-            B[i][j] = (float) i * j;
-        }
-    }
-    gettimeofday(&tv, NULL);
-    double fim_serial = (double) tv.tv_sec + (double)tv.tv_usec / 1000000.0;
-    double tserial = start_serial/fim_serial;
-    printf("Tempo serial: %lf\n", tserial);
-
-    multiplicacao(A, B, C);
-    gettimeofday(&tv,NULL); 
-    end_t = (double) tv.tv_sec + (double) tv.tv_usec / 1000000.0;
-    tempo_gasto = end_t - start_t;
-    printf("Tempo gasto: %f usecs", tempo_gasto);
-    return 0;
+    my_result = my_result * h;
+#pragma omp critical
+    *global_result_p += my_result;
 }
