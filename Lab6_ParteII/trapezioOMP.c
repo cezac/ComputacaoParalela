@@ -20,7 +20,7 @@ int main (int argc, char* argv[]){
     printf("Entre a variavel n : \n");
     scanf("%d", &n);
 
-#pragma omp parallel num_threads(thread_count)
+#pragma omp parallel num_threads(thread_count) // Definir números de threads, conforme a execução 1, 2, 4, 6 e 8
 
     Trapezio(a, b, n, &global_result, sin);
 
@@ -51,6 +51,6 @@ double Trapezio (double a, double b, int n, double * global_result_p, double(*f)
         my_result += x;
     }
     my_result = my_result * h;
-#pragma omp critical
+#pragma omp critical // Região Critíca de Execução
     *global_result_p += my_result;
 }
