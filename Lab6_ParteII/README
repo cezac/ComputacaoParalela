@@ -8,4 +8,8 @@ Faça uma comparação de tempo de execução com 1, 2, 4  e 8 processadores par
 
 Faça um gráfico que mostre a escalabilidade do Speedup para cada quantidade de threads utilizada.
 
-Todos os dados devem estar contidos no README do git. Não serão analisados artefatos fora do controle de versão.
+Todos os dados devem estar contidos no README do git. Não serão analisados artefatos fora do controle de versão;
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+RESPOSTAS:
+
