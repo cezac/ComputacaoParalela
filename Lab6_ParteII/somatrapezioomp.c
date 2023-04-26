@@ -1,5 +1,6 @@
 // ANDRE CUNHA QUINTILIANO DE CAMARGO - 32073801
 // Caio Cezar Oliveria Filardi do Carmo - 31891365
+// O código permanece o mesmo do laboratório anterior, com alteração nas execuções com diferentes números de threads
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,7 +24,7 @@ int main (int argc, char* argv[]){
     printf("Entre a variavel n : \n");
     scanf("%d", &n);
 
-#pragma omp parallel num_threads(thread_count)
+#pragma omp parallel num_threads(thread_count) // Especificação do números de threads - alterar váriavel de threads para 1, 2, 4, 6 e 8
 
     Trapezio(a, b, n, &global_result);
 
@@ -50,6 +51,6 @@ double Trapezio (double a, double b, int n, double* global_result_p)){
         my_result += x;
     }
     my_result = my_result * h;
-#pragma omp critical
+#pragma omp critical // Acesso a região crítica
     *global_result_p += my_result;
 }
