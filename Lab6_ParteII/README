@@ -1,0 +1,11 @@
+Considere os seguintes problemas que foram implementados até agora:
+
+Soma dos trapézios;
+Multiplicação de matrizes.
+Construa duas versões paralelas com OpenMP explorando pelo menos duas técnicas para o controle de acesso à região crítica. Compare o valor total do somatório para cada uma das versões e explique qual abordagem obteve um valor mais preciso e porquê.
+
+Faça uma comparação de tempo de execução com 1, 2, 4  e 8 processadores para a versão paralela. Construa uma tabela contendo o tempo médio de 3 execuções para cada versão e sua respectiva quantidade de threads.
+
+Faça um gráfico que mostre a escalabilidade do Speedup para cada quantidade de threads utilizada.
+
+Todos os dados devem estar contidos no README do git. Não serão analisados artefatos fora do controle de versão.
