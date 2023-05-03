@@ -1,113 +1,103 @@
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
-#include <time.h>
-clock_t começo;
+#include "stdio.h"
+#include "stdlib.h"
+#include "time.h"
+clock_t comeco;
 clock_t final;
 
-// Estrutura que armazena os dados para cada thread
-typedef struct
+int* guarda_Vetor (FILE *arquivo, int tamanho) // Função para armazenar os elementos do txt dentro do vetor
 {
-    int* linha;
-    int linhas;
-    int colunas;
-    int thread;
-} dados_thread;
+    comeco = clock();
+    int *vetor = malloc(sizeof(int) * tamanho);
+    int aux;
+    int interator = 0;
 
-// Função executada por cada thread
-void alocaLinha(dados_thread * dados)
-{
-    for (int i = 0; i < dados->linhas; i++)
-        dados->linha[i] = dados->thread * dados->colunas + i;
-}
-
-// Função que cria uma matriz de tamanho linhas x colunas
-int ** criaMatriz(int linhas, int colunas)
-{
-    começo = clock();
-    // Aloca um vetor de ponteiros
-    int ** matriz = (int **) malloc(linhas * sizeof(int *));
-
-    // Aloca cada linha da matriz como um vetor de threads
-    pthread_t * threads = (pthread_t *) malloc( linhas * sizeof(pthread_t) );
-    dados_thread * dados = (dados_thread *) malloc( linhas * sizeof(dados_thread) );
-
-    // Executa a thread para cada linha da matriz
-    for (int i = 0; i < linhas; i++)
-    {
-        dados[i].linha = (int *) malloc(colunas * sizeof(int));
-        dados[i].linhas = linhas;
-        dados[i].colunas = colunas;
-        dados[i].thread = i;
-        pthread_create(&threads[i], NULL, (void *) alocaLinha, &dados[i]);
+    if (arquivo==NULL){ // Valida se o arquivo foi encontrado
+        printf("Erro ao encontrar o arquivo\n");
+        exit(1);
     }
-
-    // Espera a execução das threads
-    for (int i = 0; i < linhas; i++)
-    {
-        pthread_join(threads[i], NULL);
-        matriz[i] = dados[i].linha;
+    while(fscanf(arquivo, "%d", &aux)!=EOF) {
+        if (aux !='\n') { // Elimina o pulo de linha como um elemento do txt a ser inserido no vetor
+            vetor[interator] = aux;
+            interator++;
+        }
     }
     final = clock();
-    // Exibi o tempo de processamento para criação da matriz
-    printf ("Tempo de processamento: %f", ((float)começo - final) / ((CLOCKS_PER_SEC)));
-
-    free(threads);
-    free(dados);
-
-    // Retorna a matriz alocada
-    return matriz;
+    printf ("Tempo de processamento para armazenar o vetor = %f\n", ((float) comeco - final) / ((CLOCKS_PER_SEC)));
+    return vetor;
 }
 
-// Função para exibir a matriz
-void printaMatriz(int ** matriz, int linhas, int colunas)
+void ordena_Vetor(int *vetor, int tamanho) // Função que ira ordenar o vetor
 {
-    for (int i = 0; i < linhas; i++)
+    comeco = clock();
+    int aux;
+    for (int i=0; i < tamanho-1; i++)
     {
-        for (int j = 0; j < colunas; j++)
-            printf("%d ", matriz[i][j]);
-        printf("\n");
+        for (int j=0; j < tamanho-i-1; j++)
+        {
+            if (vetor[j] > vetor[j+1])
+            {
+                aux = vetor[j];
+                vetor[j] = vetor[j+1];
+                vetor[j+1] = aux;
+            }
+        }
     }
-}
-
-// Função que multiplica a matriz pelo vetor
-int multiplicaMatrizVetor(int ** matriz, int * vetor, int linhas, int colunas, int *resultado)
-{
-    começo = clock();
-    for (int i = 0; i < linhas; i++)
-    {
-        for (int j = 0; j < colunas; j++)
-            resultado[i] += matriz[i][j] * vetor[j];
-    }
-     
     final = clock();
-    printf ("Tempo de processamento2 : %f", ((float)começo - final) / ((CLOCKS_PER_SEC)));
-    return resultado;
-    printf("%d ", resultado);
+    printf ("Tempo de processamento para ordenar o vetor = %f\n", ((float) comeco - final) / ((CLOCKS_PER_SEC)));
+}
+
+int buscaBinaria(int *vetor, int elemento, int tamanho) //Defina uma função de busca binária que recebe dois parâmetros: um vetor de inteiros e o elemento que se deseja encontrar
+{
+    comeco = clock();
+    //Declare variáveis inteiras min e max
+    int min = 0;
+    int max = tamanho - 1;
+
+    //Enquanto min é menor ou igual a max
+    while (min <= max) {
+        //Encontre o meio do vetor
+        int meio = (min + max) / 2;
+
+        //Se o elemento no meio do vetor for igual ao elemento procurado
+        if (vetor[meio] == elemento) {
+            //Retorne a posição do elemento
+            printf ("Tempo de processamento para encontrar o elemento = %f\n", ((float) comeco - final) / ((CLOCKS_PER_SEC)));
+            return meio;
+        }
+            //Se o elemento no meio do vetor for menor que o elemento procurado
+        else if(vetor[meio] < elemento) {
+            min = meio + 1;
+        }
+            //Se o elemento no meio do vetor for maior que o elemento procurado
+        else {
+            max = meio - 1;
+        }
+    }
+    final = clock();
+    printf ("Tempo de processamento para encontrar o elemento = %f\n", ((float) comeco - final) / ((CLOCKS_PER_SEC)));
+    return -1;
 }
 
 int main()
 {
-    // Declara a matriz e define o seu tamanho
-    int ** matriz;
-    int* resultado;
-    int* vetor = {2,2,2};
-    int linhas = 3, colunas = 3;
+    FILE *arquivo; // Variavel do tipo ponteiro para FILE
+    char nome_arquivo[10]; //Vetor de char para guardar o nome do arquivo
+    int elemento = 0;
+    int tamanho = 65536;
 
-    // Cria a matriz
-    matriz = criaMatriz(linhas, colunas);
+    printf("Digite o nome do arquivo: "); // Lê o nome do arquivo na linha de comando
+    scanf("%s", *&nome_arquivo);
 
-    // exibi a matriz
-    printaMatriz(matriz, linhas, colunas);
+    arquivo = fopen(nome_arquivo, "r"); // Abertura do txt
 
-    //multiplica por um vetor
-    multiplicaMatrizVetor(matriz, vetor, linhas, colunas, resultado);
-
-    // Libera a memória alocada
-    for (int i = 0; i < linhas; i++)
-        free(matriz[i]);
-    free(matriz);
-
+    int *vetor = guarda_Vetor(arquivo, tamanho); // Chamada da função que guarda o elementos no vetor
+    ordena_Vetor(vetor, tamanho); // Chamada da função que ira ordenar o vetor
+    for (int i=0; i<tamanho; i++){ // Printa o vetor ordenado
+        printf("%d, \n", vetor[i]);
+    }
+    printf("Digite o elemento que deseja encontrar: "); // Lê o elememto que deseja encontarar na linha de comando
+    scanf("%d", &elemento);
+    int posicao = buscaBinaria(vetor, elemento, tamanho); // Chama da funcao que ira encontrar o elemento no vetor
+    printf("A posicao do elemento %d = %d\n", elemento, posicao);
     return 0;
 }
