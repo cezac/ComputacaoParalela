@@ -1,52 +1,39 @@
 #include "stdio.h"
 #include "stdlib.h"
-FILE *arquivo;
 
-int guarda_Vetor (FILE *arquivo)
+int guarda_Vetor (FILE *arquivo) // Função para armazenar os elementos do txt dentro do vetor
 {
-    int vetor[65536];
+    int vetor[65536]; // Tamanho fixo do vetor 2^16
     int aux;
     int interator = 0;
 
-    if (arquivo==NULL){
+    if (arquivo==NULL){ // Valida se o arquivo foi encontrado
         printf("Erro ao encontrar o arquivo\n");
         exit(1);
     }
     while(fscanf(arquivo, "%d", &aux)!=EOF) {
-        if (aux !='\n') {
+        if (aux !='\n') { // Elimina o pulo de linha como um elemento do txt a ser inserido no vetor
             vetor[interator] = aux;
-            printf("%d", vetor[interator]);
+            printf("%d",vetor[interator]);
             interator++;
         }
     }
-    return vetor;
+    return *vetor;
 }
 
-int busca_Binaria (int vector[], int elem, int tamanho)
+int main()
 {
-    int comeco = 0;
-    int final = tamanho-1;
-    while(comeco<=final){
-        int i = (comeco+final)/2;
-        if (vector[i]==elem){
-            return vector[i];
-        }
-        if (vector[i]<elem){
-            comeco = i+1;
-        }
-        else{
-            final = i;
-        }
-    }
-    return -1;
-}
+    FILE *arquivo; // Variavel do tipo ponteiro para FILE
+    char nome_arquivo [10]; //Vetor de char para guardar o nome do arquivo
 
 
-int main() {
+    printf("Digite o nome do arquivo: "); // Lê o nome do arquivo na linha de comando
+    scanf("%s", *&nome_arquivo);
 
-    arquivo = fopen("vetor1.txt","r");
-    guarda_Vetor(arquivo);
-    
+
+    arquivo = fopen(nome_arquivo,"r"); // Abertura do txt
+    guarda_Vetor(arquivo); //Chamada da função que guarda o elementos no vetor
 
     return 0;
 }
+
