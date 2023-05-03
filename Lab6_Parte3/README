@@ -32,3 +32,10 @@ Tempo de processamento para armazenar o vetor = 0.033000s
 Tempo de processamento para ordenar o vetor = 11.699000s
 Tempo de processamento para encontrar o elemento = 19.642000s
 Tempo de processamento total = 31.374000s
+
+
+ALGORITMO PARALELIZADO:
+Tempo de processamento para armazenar o vetor = 0.033000s
+Tempo de processamento para ordenar o vetor = 5.411000s
+Tempo de processamento para encontrar o elemento = 10.744000s
+Tempo de processamento total = 16.188000s
