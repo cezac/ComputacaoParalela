@@ -23,3 +23,12 @@ Ao final, imprima a posição do elemento encontrado.
 Submeter: o código fonte e prints da tela da execução junto com os tempos de execução paralela e serial, além do cáculo de speedup.
 
 Utilize o arquivo vetor1.txt para testar seu código.
+
+======================================================================================================================================================================
+RESPOSTA:
+
+ALGORITMO SEQUENCIAL:
+Tempo de processamento para armazenar o vetor = 0.033000s
+Tempo de processamento para ordenar o vetor = 11.699000s
+Tempo de processamento para encontrar o elemento = 19.642000s
+Tempo de processamento total = 31.374000s
