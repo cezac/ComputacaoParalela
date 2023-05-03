@@ -1,23 +1,40 @@
 #include "stdio.h"
-#include "math.h"
+#include "stdlib.h"
+FILE *arquivo;
+
+int guarda_Vetor (FILE *arquivo)
+{
+    int vetor[65536];
+    int aux;
+    int interator = 0;
+
+    if (arquivo==NULL){
+        printf("Erro ao encontrar o arquivo\n");
+        exit(1);
+    }
+    while(fscanf(arquivo, "%d", &aux)!=EOF) {
+        if (aux !='\n') {
+            vetor[interator] = aux;
+            printf("%d", vetor[interator]);
+            interator++;
+        }
+    }
+    return vetor;
+}
 
 int busca_Binaria (int vector[], int elem, int tamanho)
 {
     int comeco = 0;
     int final = tamanho-1;
-    while(comeco<=final)
-    {
+    while(comeco<=final){
         int i = (comeco+final)/2;
-        if (vector[i]==elem)
-        {
+        if (vector[i]==elem){
             return vector[i];
         }
-        if (vector[i]<elem)
-        {
+        if (vector[i]<elem){
             comeco = i+1;
         }
-        else
-        {
+        else{
             final = i;
         }
     }
@@ -26,11 +43,10 @@ int busca_Binaria (int vector[], int elem, int tamanho)
 
 
 int main() {
-    int tamanho = pow(2,16);
-    int vetor [tamanho];
-    printf("Vetor tem tamanho de %d", tamanho);
 
+    arquivo = fopen("vetor1.txt","r");
+    guarda_Vetor(arquivo);
+    
 
-    busca_Binaria(vetor, 1, tamanho);
     return 0;
 }
