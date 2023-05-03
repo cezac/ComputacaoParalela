@@ -1,9 +1,9 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-int *guarda_Vetor (FILE *arquivo) // Função para armazenar os elementos do txt dentro do vetor
+int guarda_Vetor (FILE *arquivo) // Função para armazenar os elementos do txt dentro do vetor
 {
-    int vetor[65536]; // Tamanho fixo do vetor 2^16
+    int *vetor = malloc(sizeof(int) * 65536); // Tamanho fixo do vetor 2^16
     int aux;
     int interator = 0;
 
@@ -17,10 +17,13 @@ int *guarda_Vetor (FILE *arquivo) // Função para armazenar os elementos do txt
             interator++;
         }
     }
+    for (int i=0; i<65536; i++){
+        printf("%d",vetor[i]);
+    }
     return *vetor;
 }
 
-int *ordena_Vetor(int vetor[], int tamanho) // Função que ira ordenar o vetor
+int ordena_Vetor(int *vetor, int tamanho) // Função que ira ordenar o vetor
 {
     int aux;
     for (int i=0; i < tamanho-1; i++)
@@ -38,7 +41,6 @@ int *ordena_Vetor(int vetor[], int tamanho) // Função que ira ordenar o vetor
     return *vetor;
 }
 
-
 int main()
 {
     FILE *arquivo; // Variavel do tipo ponteiro para FILE
@@ -48,10 +50,9 @@ int main()
     printf("Digite o nome do arquivo: "); // Lê o nome do arquivo na linha de comando
     scanf("%s", *&nome_arquivo);
 
-
     arquivo = fopen(nome_arquivo, "r"); // Abertura do txt
 
-    vetor = guarda_Vetor(arquivo); // Chamada da função que guarda o elementos no vetor
+    *vetor = guarda_Vetor(arquivo); // Chamada da função que guarda o elementos no vetor
     ordena_Vetor(vetor, 65536); // Chama da função que ira ordenar o vetor
 
     return 0;
