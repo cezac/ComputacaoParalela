@@ -1,3 +1,21 @@
+RESPOSTA:
+
+ALGORITMO SEQUENCIAL:
+Tempo de processamento para armazenar o vetor = 0.033000s
+Tempo de processamento para ordenar o vetor = 11.699000s
+Tempo de processamento para encontrar o elemento = 19.642000s
+Tempo de processamento total = 31.374000s
+
+
+ALGORITMO PARALELIZADO:
+Tempo de processamento para armazenar o vetor = 0.033000s
+Tempo de processamento para ordenar o vetor = 5.411000s
+Tempo de processamento para encontrar o elemento = 10.744000s
+Tempo de processamento total = 16.188000s
+
+SPEEDUP
+Speedup = 31.374000s / 16.188000s = 1.93
+======================================================================================================================================================================
 Crie um código-fonte em C, utilizando somente #pragma omp parallel para encontrar um elemento em um vetor de tamanho de 2^16. Para isso:
 
 garanta que os elementos no vetor sejam únicos
@@ -23,19 +41,3 @@ Ao final, imprima a posição do elemento encontrado.
 Submeter: o código fonte e prints da tela da execução junto com os tempos de execução paralela e serial, além do cáculo de speedup.
 
 Utilize o arquivo vetor1.txt para testar seu código.
-
-======================================================================================================================================================================
-RESPOSTA:
-
-ALGORITMO SEQUENCIAL:
-Tempo de processamento para armazenar o vetor = 0.033000s
-Tempo de processamento para ordenar o vetor = 11.699000s
-Tempo de processamento para encontrar o elemento = 19.642000s
-Tempo de processamento total = 31.374000s
-
-
-ALGORITMO PARALELIZADO:
-Tempo de processamento para armazenar o vetor = 0.033000s
-Tempo de processamento para ordenar o vetor = 5.411000s
-Tempo de processamento para encontrar o elemento = 10.744000s
-Tempo de processamento total = 16.188000s
