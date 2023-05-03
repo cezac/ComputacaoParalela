@@ -1,8 +1,10 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "time.h"
-clock_t comeco;
-clock_t final;
+#include "omp.h"
+
+clock_t comeco; // Variavel globlal
+clock_t final;  // Variavel globlal
 
 int* guarda_Vetor (FILE *arquivo, int tamanho) // Função para armazenar os elementos do txt dentro do vetor
 {
@@ -30,6 +32,10 @@ void ordena_Vetor(int *vetor, int tamanho) // Função que ira ordenar o vetor
 {
     comeco = clock();
     int aux;
+    int nthreads = omp_get_num_threads();
+    int maxthreads = omp_get_max_threads();
+
+    #pragma omp parallel for
     for (int i=0; i < tamanho-1; i++)
     {
         for (int j=0; j < tamanho-i-1; j++)
@@ -44,6 +50,8 @@ void ordena_Vetor(int *vetor, int tamanho) // Função que ira ordenar o vetor
     }
     final = clock();
     printf ("Tempo de processamento para ordenar o vetor = %f\n", ((float) comeco - final) / ((CLOCKS_PER_SEC)));
+    printf("Numero de threads: %d\n", nthreads);
+    printf("Maximo de threads: %d\n", maxthreads);
 }
 
 int buscaBinaria(int *vetor, int elemento, int tamanho) //Defina uma função de busca binária que recebe dois parâmetros: um vetor de inteiros e o elemento que se deseja encontrar
@@ -53,6 +61,7 @@ int buscaBinaria(int *vetor, int elemento, int tamanho) //Defina uma função de
     int min = 0;
     int max = tamanho - 1;
 
+    #pragma omp parallel for reduction (max: max)
     //Enquanto min é menor ou igual a max
     while (min <= max) {
         //Encontre o meio do vetor
