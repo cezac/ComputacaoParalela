@@ -1,3 +1,23 @@
 Nesta atividade você deverá escolher duas tarefas realizadas com OpenMP ou PThreads e reimplementá-las, agora com OpenACC. No arquivo openacc_files.zip tem exemplos de como usar o OpenACC de modo eficiente, lidando com movimentação de dados entre a placa e a memória principal; você deve estudar e rodar cada um para entender como funciona.
 
 Você deverá entregar os códigos com as implementações em OpenACC, a saída da execução com o profiler e prints da tela mostrando a execução. No README do repositório coloque os resultados da execução dos seguintes comandos: nvidia-smi e nvaccelinfo.
+
+Wed May 17 03:12:50 2023       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 525.85.12    Driver Version: 525.85.12    CUDA Version: 12.0     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Tesla T4            Off  | 00000000:00:04.0 Off |                    0 |
+| N/A   39C    P8     9W /  70W |      0MiB / 15360MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
